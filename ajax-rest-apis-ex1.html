@@ -104,127 +104,72 @@
             console.log(data);
         });
 
-    // 4) Get all the posts from user with id of 2
-
-    // https://my-json-server.typicode.com/zachhall/WIN2020_AjaxPromises/comments?id=12
-    $.get('https://my-json-server.typicode.com/zachhall/WIN2020_AjaxPromises/posts?userID=2', function(data){
-	console.log(data);
-    });
-
-// 5) Create a new post and log the id generated for it by the server
-
-$.post('https://my-json-server.typicode.com/zachhall/WIN2020_AjaxPromises/posts',{
-	userId: 1,
-	title: "My New Post",
-	body: "This is the body"
-}, function(data){
-	console.log(data.id)
-})
+        // 4) Get all the posts from user with id of 2
+        // https://my-json-server.typicode.com/zachhall/WIN2020_AjaxPromises/comments?id=12
+        $.get('https://my-json-server.typicode.com/zachhall/WIN2020_AjaxPromises/posts?userID=2', function (data) {
+            console.log(data);
+        });
 
 
-
-// 6) Replace the post with id of 12
-
-
-$.get({
-	method: 'POST',
-	url: 'https://my-json-server.typicode.com/zachhall/WIN2020_AjaxPromises/posts?id=12',
-	data: {
-		userId: 1,
-		title: "New Post",
-		body: "New post added"
-	},
-	complete: response => {
-		console.log(response.responseJSON);
-	}
-})
+        // 5) Create a new post and log the id generated for it by the server
+        $.post('https://my-json-server.typicode.com/zachhall/WIN2020_AjaxPromises/posts', {
+            userId: 1,
+            title: "My New Post",
+            body: "This is the body"
+        }, function (data) {
+            console.log(data.id)
+        })
 
 
 
-// 7) Update the title field of the post with id of 12
+        // 6) Replace the post with id of 12
+        $.get({
+            method: 'POST',
+            url: 'https://my-json-server.typicode.com/zachhall/WIN2020_AjaxPromises/posts?id=12',
+            data: {
+                userId: 1,
+                title: "New Post",
+                body: "New post added"
+            },
+            complete: response => {
+                console.log(response.responseJSON);
+            }
+        })
 
-$.ajax({
-	method: 'PATCH',
-	url: 'http://jsonplaceholder.typicode.com/posts/12',
-	data: {
-title: "patched it"
-},
-	complete: response => {
-		console.log(response.responseJSON);
-	}
-})
+        // 7) Update the title field of the post with id of 12
+        $.ajax({
+            method: 'PATCH',
+            url: 'http://jsonplaceholder.typicode.com/posts/12',
+            data: {
+                title: "patched it"
+            },
+            complete: response => {
+                console.log(response.responseJSON);
+            }
+        })
 
 
+        // 8) Delete the post with id of 12
+        $.ajax({
+            method: 'DELETE',
+            url: 'http://jsonplaceholder.typicode.com/posts/12',
+            complete: response => {
+                console.log(response.statusText);
+            }
+        })
 
-// 8) Delete the post with id of 12
-
-$.ajax({
-	method: 'DELETE',
-	url: 'http://jsonplaceholder.typicode.com/posts/12',
-	complete: response => {
-		console.log(response.statusText);
-	}
-})
-
-
+// Exercise 1 incomplete Not done
+// Delete the post with id of 12 and render a success message
 // Display a list of posts.
 // When the user clicks on a post, display all the comments from that post
 // Display a link back to all posts
-
-
-
-
-
-// var list = $('ul#userList');
-
-//         //Make a GET request for the items to render
-//         $.get('https://my-json-server.typicode.com/zachhall/WIN2020_AjaxPromises/posts', function (users) {
-//             //Iterate over the response, adding elements to DOM
-//             users.forEach(function (user) {
-//                 var li = $('<li></li>');
-//                 li.text(user.name);
-//                 list.append(li);
-//             })
-//         })
-
-
     </script>
-
 </body>
-
 </html>
-
-
-
-<!-- Exercise 1
-Use jQuery to do the following things with the https://my-json-server.typicode.com/zachhall/WIN2020_AjaxPromises API.
-
-Create buttons that do each of the tasks below
-Render the results to the page in html elements.
-Hide the results from the previous actions
-Get all posts
-Get post with id of 10
-Get the comments from post with id of 12 
-note: comments are part of a different data model, you'll need to structure your endpoint to ask for all of the comments that belong to post #12
-Get all the posts from user with id of 2
-Create a new post and log the id generated for it by the server
-Replace the post with id of 12 and render the responseJSON
-Update the title of post with id of 12 and render responseJSON
-Delete the post with id of 12 and render a success message
-Display a list of posts.
-When the user clicks on a post, display all the comments from that post
-Display a link back to all posts -->
-
-
-
-
-
 
 
 <!--Exercise 2
 Write a function, testNum, that takes a number as an argument and returns a Promise that tests if the value is less than or greater than 50.
 
 Exercise 3
-Write two functions to chain together. The first function, makeAllCaps, will take in an array of words and capitalize them. A second function, sortWords, will sort the words in alphabetical order. 
-
-If the array contains anything besides a single word (string), an error should be thrown.-->
+Write two functions to chain together. The first function, makeAllCaps, will take in an array of words and capitalize them. A second function, sortWords, will sort the words in alphabetical order. If the array contains anything besides a single word (string), an error should be thrown.-->
