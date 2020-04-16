@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body>
+    <h1>JAX + REST APIs Lab</h1>
+    <!-- Slide #4 -->
+    <div class="main">
+        <ul>
+            <li>
+                <button type="button" id="myButton">Sync</button>
+                <button type="button" id="deleteList">Clear List</button>
+            </li>
+        </ul>
+        ​
+        <ul class="listOne">
+
+        </ul>
+    </div>
+
+    </ul>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+
+    <script type='text/javascript'>
+
+        // slide #3
+        function ajaxCall() {
+            var ajaxRequest = new XMLHttpRequest();
+
+            ajaxRequest.onreadystatechange = function () {
+                if (ajaxRequest.readyState == XMLHttpRequest.DONE) {
+                    if (ajaxRequest.status == 200) {
+                        var myDiv = document.querySelector('.main');
+                        var newDiv = document.createElement('div');
+                        newDiv.innerHTML = ajaxRequest.responseText;
+                        myDiv.appendChild(newDiv);
+                    }
+                    else if (ajaxRequest.status == 400) {
+                        console.log('There was an error 400');
+                    }
+                    else {
+                        console.log('something else other than 200 was returned');
+                    }
+                }
+            };
+
+            ajaxRequest.open("GET", 'https://my-json-server.typicode.com/zachhall/WIN2020_AjaxPromises', true); // deleted /posts
+            ajaxRequest.send();
+        }
+
+        (function (document) {
+            var myBtn = document.getElementById('myButton');
+            myBtn.addEventListener('click', ajaxCall);
+        })(document);
+        /////////////////////////////////////
+
+        // Slide #5
+        $.get('https://my-json-server.typicode.com/zachhall/WIN2020_AjaxPromises/posts', function (todos) {
+            console.log(todos);
+        });
+
+        //  Slide #11
+        //Get reference to the list element
+        var list = $('ul#userList');
+
+        // Make a GET request for the items to render
+        $.get('https://my-json-server.typicode.com/zachhall/WIN2020_AjaxPromises/posts', function (users) {
+            //Iterate over the response, adding elements to DOM
+            users.forEach(function (user) {
+                var li = $('<li></li>');
+                li.text(user.name);
+                list.append(li);
+            })
+        })
+
+
+        // 2) Get post with id of 10
+        $.get('http://my-json-server.typicode.com/zachhall/WIN2020_AjaxPromises/posts?id=10', function (data) {
+            console.log(data);
+        });
+
+
+        // 3) Get the comments from post with id of 12
+        $.get('http://my-json-server.typicode.com/zachhall/WIN2020_AjaxPromises/comments?id=12', function (data) {
+            console.log(data);
+        });
+
+    // 4) Get all the posts from user with id of 2
+
+    // https://my-json-server.typicode.com/zachhall/WIN2020_AjaxPromises/comments?id=12
+    $.get('https://my-json-server.typicode.com/zachhall/WIN2020_AjaxPromises/posts?userID=2', function(data){
+	console.log(data);
+    });
+
+// 5) Create a new post and log the id generated for it by the server
+
+$.post('https://my-json-server.typicode.com/zachhall/WIN2020_AjaxPromises/posts',{
+	userId: 1,
+	title: "My New Post",
+	body: "This is the body"
+}, function(data){
+	console.log(data.id)
+})
+
+
+
+// 6) Replace the post with id of 12
+
+
+$.get({
+	method: 'POST',
+	url: 'https://my-json-server.typicode.com/zachhall/WIN2020_AjaxPromises/posts?id=12',
+	data: {
+		userId: 1,
+		title: "New Post",
+		body: "New post added"
+	},
+	complete: response => {
+		console.log(response.responseJSON);
+	}
+})
+
+
+
+// 7) Update the title field of the post with id of 12
+
+$.ajax({
+	method: 'PATCH',
+	url: 'http://jsonplaceholder.typicode.com/posts/12',
+	data: {
+title: "patched it"
+},
+	complete: response => {
+		console.log(response.responseJSON);
+	}
+})
+
+
+
+// 8) Delete the post with id of 12
+
+$.ajax({
+	method: 'DELETE',
+	url: 'http://jsonplaceholder.typicode.com/posts/12',
+	complete: response => {
+		console.log(response.statusText);
+	}
+})
+
+
+// Display a list of posts.
+// When the user clicks on a post, display all the comments from that post
+// Display a link back to all posts
+
+
+
+
+
+// var list = $('ul#userList');
+
+//         //Make a GET request for the items to render
+//         $.get('https://my-json-server.typicode.com/zachhall/WIN2020_AjaxPromises/posts', function (users) {
+//             //Iterate over the response, adding elements to DOM
+//             users.forEach(function (user) {
+//                 var li = $('<li></li>');
+//                 li.text(user.name);
+//                 list.append(li);
+//             })
+//         })
+
+
+    </script>
+
+</body>
+
+</html>
+
+
+
+<!-- Exercise 1
+Use jQuery to do the following things with the https://my-json-server.typicode.com/zachhall/WIN2020_AjaxPromises API.
+
+Create buttons that do each of the tasks below
+Render the results to the page in html elements.
+Hide the results from the previous actions
+Get all posts
+Get post with id of 10
+Get the comments from post with id of 12 
+note: comments are part of a different data model, you'll need to structure your endpoint to ask for all of the comments that belong to post #12
+Get all the posts from user with id of 2
+Create a new post and log the id generated for it by the server
+Replace the post with id of 12 and render the responseJSON
+Update the title of post with id of 12 and render responseJSON
+Delete the post with id of 12 and render a success message
+Display a list of posts.
+When the user clicks on a post, display all the comments from that post
+Display a link back to all posts -->
+
+
+
+
+
+
+
+<!--Exercise 2
+Write a function, testNum, that takes a number as an argument and returns a Promise that tests if the value is less than or greater than 50.
+
+Exercise 3
+Write two functions to chain together. The first function, makeAllCaps, will take in an array of words and capitalize them. A second function, sortWords, will sort the words in alphabetical order. 
+
+If the array contains anything besides a single word (string), an error should be thrown.-->
